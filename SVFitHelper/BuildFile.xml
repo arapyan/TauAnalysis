@@ -1,0 +1,9 @@
+<use   root=""/>
+<use   name="lhapdf"/>
+<use   name="RecoMET/METAlgorithms"/>
+<use   name="CondFormats/JetMETObjects"/>
+<use   name="TauAnalysis/CandidateTools"/>
+<flags   CXXFLAGS="-g -Wall"/>
+<export>
+  <lib   name="1"/>
+</export>
