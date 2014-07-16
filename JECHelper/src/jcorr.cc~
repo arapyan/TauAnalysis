@@ -1,0 +1,33 @@
+#include "JEC/JECHelper/interface/jcorr.h"
+
+ClassImp(jcorr)
+
+jcorr::jcorr()
+{
+  fJetCorrector=0;
+}
+
+jcorr::~jcorr()
+{}
+
+void jcorr::setup()
+{					       
+  if(fJetCorrParsv.size()==0)
+    {
+      std::cout << "No correction inputs were provided" << std::endl;
+    }
+  for(unsigned int icorr=0; icorr<fJetCorrParsv.size(); icorr++)
+    { 
+      correctionParameters.push_back(JetCorrectorParameters(fJetCorrParsv[icorr].Data())); 
+    }
+  fJetCorrector = new FactorizedJetCorrector(correctionParameters); 
+}
+
+double jcorr::getCorrection(double pT, double eta, double rho, double area)
+{
+  fJetCorrector->setJetEta(eta);
+  fJetCorrector->setJetPt(pT);
+  fJetCorrector->setRho(rho);
+  fJetCorrector->setJetA(area);
+  return fJetCorrector->getCorrection();
+}
